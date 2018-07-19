@@ -16,7 +16,7 @@ namespace RosterManagement
         /// Should be able to Add Student to a Particular Wave
         /// </summary>
         /// <param name="cadet">Refers to the name of the Cadet</param>
-        /// <param name="wave">Refers to the Wave number</param>
+        /// <param name="wave">Refers to the Wave number</param>.
         public void Add(string cadet, int wave)
         {            
             if (!_roster.ContainsKey(wave)) {
