@@ -7,7 +7,6 @@ namespace RosterManagement
     public class CodeSchool
     {
         Dictionary<int, List<string>> _roster;
-
         public CodeSchool()
         {
             _roster = new Dictionary<int, List<String>>();
@@ -19,7 +18,11 @@ namespace RosterManagement
         /// <param name="cadet">Refers to the name of the Cadet</param>
         /// <param name="wave">Refers to the Wave number</param>
         public void Add(string cadet, int wave)
-        {
+        {            
+            if (!_roster.ContainsKey(wave)) {
+                _roster.Add(wave, new List<string>());
+            }
+            _roster[wave].Add(cadet);
         }
 
         /// <summary>
@@ -28,8 +31,12 @@ namespace RosterManagement
         /// <param name="wave">Refers to the wave number from where cadet list is to be fetched</param>
         /// <returns>List of Cadet's Name</returns>
         public List<string> Grade(int wave)
-        {
+        {   
             var list = new List<string>();
+            if (_roster.ContainsKey(wave))
+            {
+                list = _roster[wave].OrderBy(cadet => cadet).ToList();
+            }
             return list;
         }
 
@@ -39,7 +46,12 @@ namespace RosterManagement
         /// <returns>List of Cadet's Name</returns>
         public List<string> Roster()
         {
-            var cadets = new List<string>();
+            List<string> cadets = new List<string>();
+            var cadet_wave = _roster.Keys.OrderBy(key => key);
+            foreach (int wave in cadet_wave)
+            {
+                cadets.AddRange(_roster[wave].OrderBy(cadet => cadet).ToList());
+            }
             return cadets;
         }
     }
